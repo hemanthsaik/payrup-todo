@@ -1,5 +1,5 @@
 import { validationResult } from "express-validator";
-import db from "../../database.js";
+import db from "../utils/database.js";
 
 export const getTodos = async (req, res) => {
   try {

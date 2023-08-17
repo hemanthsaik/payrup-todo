@@ -8,7 +8,7 @@ import {
   INSERT_TODO,
   UPDATE_TODO_IS_DONE,
   UPDATE_TODO_TASK,
-} from "./src/constants/db.constants.js";
+} from "../constants/db.constants.js";
 
 dotenv.config();
 
