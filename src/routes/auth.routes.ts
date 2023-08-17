@@ -1,12 +1,11 @@
 import express from "express";
+import { signIn, signUp } from "../controller";
+import { signinAuthDto, signupAuthDto } from "../dto";
+import validateRequest from "../middlewares/dtoValidationMiddleware";
 
 const authRouter = express.Router();
 
-authRouter.post("/signup", (req, res) => {
-  res.send("user is singing up ");
-});
-authRouter.post("/signin", (req, res) => {
-  res.send("user is signing in");
-});
+authRouter.post("/signup", validateRequest(signupAuthDto), signUp);
+authRouter.post("/signin", validateRequest(signinAuthDto), signIn);
 
 export default authRouter;

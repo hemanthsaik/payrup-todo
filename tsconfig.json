@@ -1,17 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES6", // Target ECMAScript version
-    "module": "CommonJS", // Use CommonJS modules
-    "outDir": "./dist", // Output directory for compiled files
-    "rootDir": "./src", // Source directory
-    "strict": true, // Enable strict type checking
-    "esModuleInterop": true, // Allow default imports with 'import'
-    "forceConsistentCasingInFileNames": true, // Enforce consistent file naming
-    "declaration": true, // Generate declaration files (.d.ts)
-    "skipLibCheck": true, // Skip type checking of declaration files
-    "resolveJsonModule": true, // Allow importing JSON modules
-    "isolatedModules": true // Enable faster transpilation
-  },
-  "include": ["src/**/*.ts"], // Include TypeScript files
-  "exclude": ["node_modules", "dist"] // Exclude directories from compilation
+    "lib": ["es5", "es6"],
+    "target": "es5",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true
+  }
 }
