@@ -1,7 +1,8 @@
+import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import db from "../utils/database.js";
+import db from "../utils/database";
 
-export const getTodos = async (req, res) => {
+export const getTodos = async (req: Request, res: Response) => {
   try {
     res.json(await db.getAllTodos());
   } catch (error) {
@@ -10,7 +11,7 @@ export const getTodos = async (req, res) => {
   }
 };
 
-export const postTodo = async (req, res) => {
+export const postTodo = async (req: Request, res: Response) => {
   const result = validationResult(req);
   if (result.isEmpty()) {
     try {
@@ -25,7 +26,7 @@ export const postTodo = async (req, res) => {
   }
 };
 
-export const putTodoTask = async (req, res) => {
+export const putTodoTask = async (req: Request, res: Response) => {
   const result = validationResult(req);
   if (result.isEmpty()) {
     try {
@@ -41,7 +42,7 @@ export const putTodoTask = async (req, res) => {
   }
 };
 
-export const putTodoisDone = async (req, res) => {
+export const putTodoisDone = async (req: Request, res: Response) => {
   const result = validationResult(req);
   if (result.isEmpty()) {
     try {
@@ -58,7 +59,7 @@ export const putTodoisDone = async (req, res) => {
   }
 };
 
-export const deleteTodo = async (req, res) => {
+export const deleteTodo = async (req: Request, res: Response) => {
   const result = validationResult(req);
   if (result.isEmpty()) {
     try {

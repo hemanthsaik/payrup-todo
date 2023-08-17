@@ -10,7 +10,7 @@ const MustBeTask = body("task")
 
 const MustBeIsDone = body("isDone").isBoolean().withMessage("Must be boolean");
 
-const MustBeId = param("id").isInt().withMessage("must be  Integer");
+const MustBeId = param("id").isNumeric().withMessage("must be  Integer");
 
 // Todo DTO's
 export const creteTodoDto = [MustBeTask, MustBeIsDone];

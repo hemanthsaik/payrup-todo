@@ -6,14 +6,14 @@ import {
   putTodoTask,
   putTodoisDone,
   deleteTodo,
-} from "../controller/todo.controller.js";
+} from "../controller/todo.controller";
 
 import {
   creteTodoDto,
   deleteTodoDto,
   updateTodoIsDoneDto,
   updateTodoTaskDto,
-} from "../dto/todo.dto.js";
+} from "../dto/todo.dto";
 
 const todoRouter = Router();
 
