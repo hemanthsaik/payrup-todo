@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 
-const MustBeUserName = body("userName")
+const MustBeUserName = body("username")
   .notEmpty()
   .withMessage("must not be empty")
   .isString()
