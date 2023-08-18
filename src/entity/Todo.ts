@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { User } from "./User";
 
 @Entity("todos")
 export class Todo {
@@ -13,4 +20,8 @@ export class Todo {
 
   @Column({ default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;
+
+  @ManyToOne(() => User, (user) => user.todos)
+  @JoinColumn({ name: "userId" })
+  user: User;
 }

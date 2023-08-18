@@ -1,13 +1,25 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import db from "../utils/database";
+import { AppDataSource } from "../data-source";
+import { Todo } from "../entity/Todo";
 
 export const getTodos = async (req: Request, res: Response) => {
   try {
-    res.json(await db.getAllTodos());
+    const { userId } = req.body;
+    console.log(userId);
+
+    const todos = await AppDataSource.getRepository(Todo).find({
+      where: {
+        user: { id: userId },
+      },
+      relations: ["user"],
+    });
+
+    res.json(todos);
   } catch (error) {
     console.log(error);
-    res.json({ msg: "error somtiong went wrong" });
+    res.json({ msg: "error something went wrong" });
   }
 };
 
@@ -19,7 +31,7 @@ export const postTodo = async (req: Request, res: Response) => {
       const createdTodo = await db.createTodo(task, isDone);
       res.json(createdTodo);
     } catch (error) {
-      res.json({ msg: "error somtiong went wrong" });
+      res.json({ msg: "error something went wrong" });
     }
   } else {
     res.json({ errors: result.array() });
@@ -35,7 +47,7 @@ export const putTodoTask = async (req: Request, res: Response) => {
       const updatedTodo = await db.updateTodoTaskById(id, task);
       res.json(updatedTodo);
     } catch (error) {
-      res.json({ msg: "error somtiong went wrong" });
+      res.json({ msg: "error something went wrong" });
     }
   } else {
     res.json({ errors: result.array() });
@@ -52,7 +64,7 @@ export const putTodoisDone = async (req: Request, res: Response) => {
       res.json(updatedTodo);
     } catch (error) {
       console.log(error);
-      res.json({ msg: "error somtiong went wrong" });
+      res.json({ msg: "error something went wrong" });
     }
   } else {
     res.json({ errors: result.array() });

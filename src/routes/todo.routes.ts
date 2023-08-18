@@ -11,15 +11,18 @@ import {
 import {
   creteTodoDto,
   deleteTodoDto,
+  getAllTodoDto,
   updateTodoIsDoneDto,
   updateTodoTaskDto,
 } from "../dto";
+import { auth } from "../middlewares/auth.middleware";
+import validateRequest from "../middlewares/dtoValidationMiddleware";
 
 const todoRouter = Router();
 
-todoRouter.get("/all", getTodos);
+todoRouter.get("/all", validateRequest(getAllTodoDto), auth, getTodos);
 
-todoRouter.post("/", creteTodoDto, postTodo);
+todoRouter.post("/", auth, creteTodoDto, postTodo);
 
 todoRouter.put("/:id/task", updateTodoTaskDto, putTodoTask);
 

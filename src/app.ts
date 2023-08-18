@@ -4,7 +4,9 @@ import authRouter from "./routes/auth.routes";
 import todoRouter from "./routes/todo.routes";
 import { AppDataSource } from "./data-source";
 import userRouter from "./routes/user.routes";
+import validateRequest from "./middlewares/dtoValidationMiddleware";
 import { auth } from "./middlewares/auth.middleware";
+import { headerDto } from "./dto";
 
 const app = express();
 
@@ -27,8 +29,9 @@ app.get("/", (req, res) => {
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
 app.use("/todo", todoRouter);
-app.get("/test", auth, (req, res) => {
-  res.send("hello world");
+app.get("/test", validateRequest(headerDto), auth, (req, res) => {
+  const { userId } = req.body;
+  res.send("hello world user: " + userId);
 });
 
 export default app;
