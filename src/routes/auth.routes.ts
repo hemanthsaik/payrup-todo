@@ -1,7 +1,7 @@
 import express from "express";
 import { signIn, signUp } from "../controller";
 import { signinAuthDto, signupAuthDto } from "../dto";
-import validateRequest from "../middlewares/dtoValidationMiddleware";
+import { validateRequest } from "../middlewares";
 
 const authRouter = express.Router();
 

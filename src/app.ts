@@ -4,8 +4,7 @@ import authRouter from "./routes/auth.routes";
 import todoRouter from "./routes/todo.routes";
 import { AppDataSource } from "./data-source";
 import userRouter from "./routes/user.routes";
-import validateRequest from "./middlewares/dtoValidationMiddleware";
-import { auth } from "./middlewares/auth.middleware";
+import { validateRequest, auth } from "./middlewares";
 import { headerDto } from "./dto";
 
 const app = express();
