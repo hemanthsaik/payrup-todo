@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { body, validationResult } from "express-validator";
-import db from "../utils/database";
+import { validationResult } from "express-validator";
 import { AppDataSource } from "../data-source";
 import { Todo } from "../entity/Todo";
 
@@ -23,111 +22,91 @@ export const getTodos = async (req: Request, res: Response) => {
 };
 
 export const postTodo = async (req: Request, res: Response) => {
-  const result = validationResult(req);
-  if (result.isEmpty()) {
-    try {
-      const { task, isDone, userId } = req.body;
-      console.log(req.body.userId);
+  try {
+    const { task, isDone, userId } = req.body;
+    console.log(req.body.userId);
 
-      const todo = new Todo();
-      todo.task = task;
-      todo.isDone = isDone;
-      todo.user = userId;
+    const todo = new Todo();
+    todo.task = task;
+    todo.isDone = isDone;
+    todo.user = userId;
 
-      const createdTodo = await AppDataSource.getRepository(Todo).save(todo);
-      res.json(createdTodo);
-    } catch (error) {
-      res.json({ msg: "error something went wrong" });
-    }
-  } else {
-    res.json({ errors: result.array() });
+    const createdTodo = await AppDataSource.getRepository(Todo).save(todo);
+    res.json(createdTodo);
+  } catch (error) {
+    res.json({ msg: "error something went wrong" });
   }
 };
 
 export const putTodoTask = async (req: Request, res: Response) => {
-  const result = validationResult(req);
-  if (result.isEmpty()) {
-    try {
-      const id = parseInt(req.params.id);
-      const { task, userId } = req.body;
+  try {
+    const id = parseInt(req.params.id);
+    const { task, userId } = req.body;
 
-      const todoRepository = AppDataSource.getRepository(Todo);
-      const todoToUpdate = await todoRepository.findOne({
-        where: {
-          id,
-          user: { id: userId },
-        },
-      });
+    const todoRepository = AppDataSource.getRepository(Todo);
+    const todoToUpdate = await todoRepository.findOne({
+      where: {
+        id,
+        user: { id: userId },
+      },
+    });
 
-      if (!todoToUpdate) {
-        return res.status(404).json({ msg: "Todo not found" });
-      }
-
-      todoToUpdate.task = task;
-      const updatedTodo = await todoRepository.save(todoToUpdate);
-      res.json(updatedTodo);
-    } catch (error) {
-      res.json({ msg: "error something went wrong" });
+    if (!todoToUpdate) {
+      return res.status(404).json({ msg: "Todo not found" });
     }
-  } else {
-    res.json({ errors: result.array() });
+
+    todoToUpdate.task = task;
+    const updatedTodo = await todoRepository.save(todoToUpdate);
+    res.json(updatedTodo);
+  } catch (error) {
+    res.json({ msg: "error something went wrong" });
   }
 };
 
 export const putTodoisDone = async (req: Request, res: Response) => {
-  const result = validationResult(req);
-  if (result.isEmpty()) {
-    try {
-      const id = parseInt(req.params.id);
-      const { isDone, userId } = req.body;
-      const todoRepository = AppDataSource.getRepository(Todo);
-      const todoToUpdate = await todoRepository.findOne({
-        where: {
-          id,
-          user: { id: userId },
-        },
-      });
+  try {
+    const id = parseInt(req.params.id);
+    const { isDone, userId } = req.body;
+    const todoRepository = AppDataSource.getRepository(Todo);
+    const todoToUpdate = await todoRepository.findOne({
+      where: {
+        id,
+        user: { id: userId },
+      },
+    });
 
-      if (!todoToUpdate) {
-        return res.status(404).json({ msg: "Todo not found" });
-      }
-
-      todoToUpdate.isDone = isDone;
-      const updatedTodo = await todoRepository.save(todoToUpdate);
-      res.json(updatedTodo);
-    } catch (error) {
-      console.log(error);
-      res.json({ msg: "error something went wrong" });
+    if (!todoToUpdate) {
+      return res.status(404).json({ msg: "Todo not found" });
     }
-  } else {
-    res.json({ errors: result.array() });
+
+    todoToUpdate.isDone = isDone;
+    const updatedTodo = await todoRepository.save(todoToUpdate);
+    res.json(updatedTodo);
+  } catch (error) {
+    console.log(error);
+    res.json({ msg: "error something went wrong" });
   }
 };
 
 export const deleteTodo = async (req: Request, res: Response) => {
-  const result = validationResult(req);
-  if (result.isEmpty()) {
-    try {
-      const id = parseInt(req.params.id);
-      const todoRepository = AppDataSource.getRepository(Todo);
-      const todoToDelete = await todoRepository.findOne({
-        where: {
-          id,
-        },
-      });
+  try {
+    const id = parseInt(req.params.id);
+    const todoRepository = AppDataSource.getRepository(Todo);
+    const todoToDelete = await todoRepository.findOne({
+      where: {
+        id,
+      },
+    });
 
-      if (!todoToDelete) {
-        return res.status(404).json({ msg: "Todo not found" });
-      }
-
-      await todoRepository.remove(todoToDelete);
-
-      res.json({ msg: "Todo deleted successfully" });
-    } catch (error) {
-      console.log(error);
-      res.json({ msg: "error somtiong went wrong" });
+    if (!todoToDelete) {
+      return res.status(404).json({ msg: "Todo not found" });
     }
-  } else {
-    res.json({ errors: result.array() });
+
+    await todoRepository.remove(todoToDelete);
+
+    res.json({ msg: "Todo deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res.json({ msg: "error somtiong went wrong" });
   }
 };

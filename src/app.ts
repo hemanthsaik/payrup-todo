@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
-app.use("/todo", todoRouter);
+app.use("/todo", auth, todoRouter);
 app.get("/test", validateRequest(headerDto), auth, (req, res) => {
   const { userId } = req.body;
   res.send("hello world user: " + userId);

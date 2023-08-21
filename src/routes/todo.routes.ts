@@ -20,14 +20,18 @@ import validateRequest from "../middlewares/dtoValidationMiddleware";
 
 const todoRouter = Router();
 
-todoRouter.get("/all", validateRequest(getAllTodoDto), auth, getTodos);
+todoRouter.get("/all", validateRequest(getAllTodoDto), getTodos);
 
-todoRouter.post("/", auth, creteTodoDto, postTodo);
+todoRouter.post("/", validateRequest(creteTodoDto), postTodo);
 
-todoRouter.put("/:id/task", auth, updateTodoTaskDto, putTodoTask);
+todoRouter.put("/:id/task", validateRequest(updateTodoTaskDto), putTodoTask);
 
-todoRouter.put("/:id/isdone", auth, updateTodoIsDoneDto, putTodoisDone);
+todoRouter.put(
+  "/:id/isdone",
+  validateRequest(updateTodoIsDoneDto),
+  putTodoisDone
+);
 
-todoRouter.delete("/:id", auth, deleteTodoDto, deleteTodo);
+todoRouter.delete("/:id", validateRequest(deleteTodoDto), deleteTodo);
 
 export default todoRouter;
