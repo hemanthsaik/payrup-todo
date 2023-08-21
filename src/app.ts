@@ -1,11 +1,9 @@
 import express from "express";
 
-import authRouter from "./routes/auth.routes";
-import todoRouter from "./routes/todo.routes";
 import { AppDataSource } from "./data-source";
-import userRouter from "./routes/user.routes";
 import { validateRequest, auth } from "./middlewares";
 import { headerDto } from "./dto";
+import { authRouter, todoRouter, userRouter } from "./routes";
 
 const app = express();
 
