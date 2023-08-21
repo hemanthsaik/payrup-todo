@@ -31,8 +31,6 @@ export const signUp = async (req: Request, res: Response) => {
     const token = createJwtToken(result);
     res.json({ token });
   } catch (error) {
-    console.log(error);
-
     res.send("someting went wrong");
   }
 };
@@ -52,7 +50,6 @@ export const signIn = async (req: Request, res: Response) => {
     }
     res.send("invalid credential");
   } catch (error) {
-    console.log(error);
     res.send("someting went wrong");
   }
 };

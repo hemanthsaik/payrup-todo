@@ -9,7 +9,6 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
     req.body = { ...req.body, userId };
     next();
   } catch (error) {
-    console.log(error);
     if (error instanceof TokenExpiredError) {
       return res.status(401).json({
         error: "token expired login again",

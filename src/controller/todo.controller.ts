@@ -6,7 +6,6 @@ import { Todo } from "../entity/Todo";
 export const getTodos = async (req: Request, res: Response) => {
   try {
     const { userId } = req.body;
-    console.log(userId);
 
     const todos = await AppDataSource.getRepository(Todo).find({
       where: {
@@ -16,7 +15,6 @@ export const getTodos = async (req: Request, res: Response) => {
 
     res.json(todos);
   } catch (error) {
-    console.log(error);
     res.json({ msg: "error something went wrong" });
   }
 };
@@ -24,7 +22,6 @@ export const getTodos = async (req: Request, res: Response) => {
 export const postTodo = async (req: Request, res: Response) => {
   try {
     const { task, isDone, userId } = req.body;
-    console.log(req.body.userId);
 
     const todo = new Todo();
     todo.task = task;
@@ -83,7 +80,6 @@ export const putTodoisDone = async (req: Request, res: Response) => {
     const updatedTodo = await todoRepository.save(todoToUpdate);
     res.json(updatedTodo);
   } catch (error) {
-    console.log(error);
     res.json({ msg: "error something went wrong" });
   }
 };
@@ -106,7 +102,6 @@ export const deleteTodo = async (req: Request, res: Response) => {
 
     res.json({ msg: "Todo deleted successfully" });
   } catch (error) {
-    console.log(error);
     res.json({ msg: "error somtiong went wrong" });
   }
 };
