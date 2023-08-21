@@ -1,2 +1,2 @@
 export * from "./auth.middleware";
-export * from "./dtoValidationMiddleware";
+export * from "./dtoValidation.middleware";

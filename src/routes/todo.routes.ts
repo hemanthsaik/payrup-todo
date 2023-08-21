@@ -15,7 +15,7 @@ import {
   updateTodoIsDoneDto,
   updateTodoTaskDto,
 } from "../dto";
-import { validateRequest } from "../middlewares/dtoValidationMiddleware";
+import { validateRequest } from "../middlewares";
 
 const todoRouter = Router();
 
