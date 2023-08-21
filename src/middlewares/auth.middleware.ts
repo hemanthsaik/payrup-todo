@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ValidationChain } from "express-validator";
-import jwt from "jsonwebtoken";
-import { userInfo } from "os";
+import jwt, { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -12,6 +10,16 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
     next();
   } catch (error) {
     console.log(error);
+    if (error instanceof TokenExpiredError) {
+      return res.status(401).json({
+        error: "token expired login again",
+      });
+    }
+    if (error instanceof JsonWebTokenError) {
+      return res.status(401).json({
+        error: "invalid header",
+      });
+    }
     res.status(401).json({
       error: "Unauthorized user",
     });

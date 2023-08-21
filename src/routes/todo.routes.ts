@@ -24,10 +24,10 @@ todoRouter.get("/all", validateRequest(getAllTodoDto), auth, getTodos);
 
 todoRouter.post("/", auth, creteTodoDto, postTodo);
 
-todoRouter.put("/:id/task", updateTodoTaskDto, putTodoTask);
+todoRouter.put("/:id/task", auth, updateTodoTaskDto, putTodoTask);
 
-todoRouter.put("/:id/isdone", updateTodoIsDoneDto, putTodoisDone);
+todoRouter.put("/:id/isdone", auth, updateTodoIsDoneDto, putTodoisDone);
 
-todoRouter.delete("/:id", deleteTodoDto, deleteTodo);
+todoRouter.delete("/:id", auth, deleteTodoDto, deleteTodo);
 
 export default todoRouter;
